@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# local linux file system example
+
+mount /dev/sdb2 /mnt/rbfl
