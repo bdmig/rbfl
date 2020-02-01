@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# remote windows file system example
+
+mount -t cifs -o domain=your_domain_or_computer_name,username=your_username,password=your_password //192.168.0.115/d$ /mnt/rbfl
