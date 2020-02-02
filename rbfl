@@ -1,0 +1,163 @@
+#!/bin/bash
+
+# --------------------------------------------------------------------------------
+# rbfl - Rsync Backup for Linux
+# Copyright © 2019-2020 Dmitry Buslaev (https://github.com/bdmig)
+# St.Petersburg, Russia, E-mail: dbu@mail.ru
+# Licensed under LGPL v3 (https://www.gnu.org/licenses/lgpl-3.0.txt)
+# --------------------------------------------------------------------------------
+
+function copy_files {
+
+umount -l /mnt/rbfl
+
+if [ -z "$2" ]
+then
+    bpath="$1"
+    fpath=$bgrp"_$1"
+else
+    bpath="$1/$2"
+    fpath=$bgrp"_$1_$2"
+fi
+
+mkdir -p $broot/$bgrp/$curdate/$bpath
+
+if [ -L $broot/last_$bgrp ]; then
+
+# previous backup exists
+
+    tmp1=`ls -la $broot | grep last_$bgrp`
+    lastdate=`echo $tmp1 | grep -Po '(\d\d\d\d+-\d+-\d+--\d+-\d+)'`
+
+    set_source
+
+    if [[ $? -eq 55 ]]
+    then
+	return
+    fi
+
+    echo  >> /var/log/rsync/rbfl-$curdate.log
+    echo ==== >> /var/log/rsync/rbfl-$curdate.log
+    echo $fpath >> /var/log/rsync/rbfl-$curdate.log
+    echo ==== >> /var/log/rsync/rbfl-$curdate.log
+
+    rsync -Hha --delete --progress --stats --prune-empty-dirs --link-dest=$broot/$bgrp/$lastdate/$bpath --include='*/' --include-from=backup_$fpath --exclude='*' $src $broot/$bgrp/$curdate/$bpath | tee -ai /var/log/rsync/rbfl-$curdate.log
+
+else
+
+# previous backup not exists
+
+    set_source
+
+    if [[ $? -eq 55 ]]
+    then
+	return
+    fi
+
+    echo  >> /var/log/rsync/rbfl-$curdate.log
+    echo ==== >> /var/log/rsync/rbfl-$curdate.log
+    echo $fpath >> /var/log/rsync/rbfl-$curdate.log
+    echo ==== >> /var/log/rsync/rbfl-$curdate.log
+
+    rsync -Hha --delete --progress --stats --prune-empty-dirs --include='*/' --include-from=backup_$fpath --exclude='*' $src $broot/$bgrp/$curdate/$bpath | tee -ai /var/log/rsync/rbfl-$curdate.log
+
+fi
+
+# optional: touch flag file for different purposes on remote machine
+
+#if [ -n "$2" ] && [ "$src" = "/mnt/rbfl/" ]
+#then
+#    touch /mnt/rbfl/ready-`date +%F`.flg
+#fi
+
+umount -l /mnt/rbfl
+
+}
+
+
+function set_source {
+
+if grep -qs '/mnt/rbfl ' /proc/mounts; then
+
+# Source mounted after umount !
+
+    if [ -d $broot/$bgrp/$lastdate/$bpath ]; then
+        src="$broot/$bgrp/$lastdate/$bpath/"
+	echo `date` $fpath is mounted after umount! src set to $src >> /var/log/rsync/emergency.log
+    else
+	echo `date` ERROR !!! $fpath is mounted after umount and there are no last symlink! >> /var/log/rsync/emergency.log
+        return 55
+    fi
+
+else
+
+# OK. It's not mounted
+
+    echo ./mount/mount_$fpath
+
+    ./mount/mount_$fpath
+
+    if grep -qs '/mnt/rbfl ' /proc/mounts; then
+
+    # OK. It's mounted
+
+        src="/mnt/rbfl/"
+
+    else
+
+    # Source not mounted after mount !
+
+        if [ -d $broot/$bgrp/$lastdate/$bpath ]; then
+	    src="$broot/$bgrp/$lastdate/$bpath/"
+	    echo `date` $fpath is not mounted after mount! src set to $src >> /var/log/rsync/emergency.log
+        else
+	    echo `date` ERROR !!! $fpath is not mounted after mount and there are no last symlink ! >> /var/log/rsync/emergency.log
+	    return 55
+	fi
+
+    fi
+fi
+
+}
+
+
+function create_link {
+
+# creates symlink to the last backup in the group
+
+rm $broot/last_$bgrp
+ln -s $broot/$bgrp/$curdate $broot/last_$bgrp
+
+}
+
+
+
+# !!! BEGIN HERE !!!
+
+broot="/backup"
+curdate=`date +%F--%H-%M`
+
+if [ ! -d /mnt/rbfl ]; then
+    mkdir /mnt/rbfl
+fi
+
+# cleaning old backups
+# default: older then 30 days, with a date in the 21 century :-),
+# but this can be easily changed in code by future generations :-)
+
+bgrp="group1"
+find $broot/$bgrp/20* -maxdepth 0 -mtime +30 -type d -exec rm -r -v "{}" \;
+copy_files "comp1" # Linux example
+copy_files "comp2" "d" # Windows example
+
+create_link
+
+bgrp="group2"
+find $broot/$bgrp/20* -maxdepth 0 -mtime +30 -type d -exec rm -r -v "{}" \;
+copy_files "comp3" "c" # Windows example
+copy_files "comp4" # Linux example
+
+create_link
+
+# etc etc: another groups, another file systems (if necessary)
+
