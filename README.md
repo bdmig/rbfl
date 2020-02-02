@@ -23,7 +23,7 @@ The mount scripts have filenames mount_<$fpath>, where fpath=$bgrp"_$1" (Linux) 
 fpath=$bgrp"_$1_$2" (Windows).
 
 Examples of mount scripts are given (files with names mount_* in the distribution).
-By default the mount scripts should be in the folder mount
+By default the mount scripts should be in the folder "mount".
 It is recommended to limit access rights to them as much as possible,
 because scripts may contain passwords.
 
