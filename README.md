@@ -37,9 +37,9 @@ Explanation for masks in the lists: one asterisk means any number of characters
 or all files in the directory after the last slash;
 two asterisks mean all files and directories after the last slash, i.e. recursion.
 
-Backup folder structure: $broot/$bgrp/<date and time>/<computer name>/<disk letter (Windows only)>,
-where <date and time> is the backup date and time in the format +%F--%H-%M,
-and <computer name> (Linux and Windows) and <disk letter> (Windows only) are passed
+Backup folder structure: $broot/$bgrp/<date_and_time>/<computer_name>/<disk_letter (Windows only)>,
+where <date_and_time> is the backup date and time in the format +%F--%H-%M,
+and <computer_name> (Linux and Windows) and <disk_letter> (Windows only) are passed
 as arguments of the function copy_files (see above).
 
 Disk space for backups is used very efficent, rsync only copies new and changed files.
