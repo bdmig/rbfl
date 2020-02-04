@@ -1,7 +1,7 @@
 
---- Смотрите этот текст на русском внизу. See this text in Russian below. ---
+#### --- Смотрите этот текст на русском внизу. See this text in Russian below. ---
 
---- English ---
+#### --- English ---
 
 rbfl is an effective script for regular backups using rsync.
 The script uses rsync, sshfs, cifs-utils, expect.
@@ -9,8 +9,8 @@ The script uses rsync, sshfs, cifs-utils, expect.
 The script is preferably to run from the root account using cron.
 Backups are created on the computer on which the script rbfl is running.
 The working directory at startup should be the directory in which the script is located:
-# cd /path/to/rbfl_script
-# ./rbfl
+\# cd /path/to/rbfl_script
+\# ./rbfl
 
 Description of variables whose value must be specified in the script:
 $broot - directory for backups starting from the root directory.
@@ -53,7 +53,7 @@ The script writes backup logs to the directory /var/log/rsync
 In addition, an emergency.log file is created in the same place,
 in which mount errors are written.
 
---- Russian ---
+#### --- Russian ---
 
 rbfl - это эффективный скрипт для регулярных бэкапов при помощи rsync.
 Использует rsync, sshfs, cifs-utils, expect.
@@ -61,8 +61,8 @@ rbfl - это эффективный скрипт для регулярных б
 Скрипт предпочтительно запускать из-под учетной записи root при помощи cron.
 Бэкапы создаются на том компьютере, на котором запускается скрипт.
 Рабочим каталогом при запуске должен быть каталог, в котором находится скрипт rbfl:
-# cd /path/to/rbfl_script
-# ./rbfl
+\# cd /path/to/rbfl_script
+\# ./rbfl
 
 
 Описание переменных, значение которых необходимо указать в скрипте:
