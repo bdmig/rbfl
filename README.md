@@ -8,10 +8,8 @@ The script uses rsync, sshfs, cifs-utils, expect.
 
 The script is preferably to run from the root account using cron.
 Backups are created on the computer on which the script rbfl is running.
-The working directory at startup should be the directory in which the script is located:
-
-\# cd /path/to/rbfl_script
-
+The working directory at startup should be the directory in which the script is located:  
+\# cd /path/to/rbfl_script  
 \# ./rbfl
 
 Description of variables whose value must be specified in the script:
@@ -62,12 +60,9 @@ rbfl - это эффективный скрипт для регулярных б
 
 Скрипт предпочтительно запускать из-под учетной записи root при помощи cron.
 Бэкапы создаются на том компьютере, на котором запускается скрипт.
-Рабочим каталогом при запуске должен быть каталог, в котором находится скрипт rbfl:
-
-\# cd /path/to/rbfl_script
-
+Рабочим каталогом при запуске должен быть каталог, в котором находится скрипт rbfl:  
+\# cd /path/to/rbfl_script  
 \# ./rbfl
-
 
 Описание переменных, значение которых необходимо указать в скрипте:
 $broot - каталог для бэкапов, начиная с корня
