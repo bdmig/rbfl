@@ -22,8 +22,8 @@ of the copy_files function. For the copy_files function must be passed 1 argumen
 for linux computers (computer name) and 2 arguments for Windows computers
 (computer name and drive letter).
 These arguments are used in the names of mount scripts and source list files.
-The mount scripts have filenames mount_<$fpath>, where fpath=$bgrp"_$1" (Linux) or
-fpath=$bgrp"_$1_$2" (Windows).
+The mount scripts have filenames mount_<$fpath>, where fpath=$bgrp"\_$1" (Linux) or
+fpath=$bgrp"\_$1\_$2" (Windows).
 
 Examples of mount scripts are given (files with names mount_* in the distribution).
 By default the mount scripts should be in the folder "mount".
@@ -73,8 +73,8 @@ $bgrp - группа файловых систем для бэкапа. Можн
 Функция copy_files принимает 1 аргумент для linux-компьютеров (имя компьютера)
 и 2 аргумента для windows-компьютеров (имя компьютера и буква диска).
 Эти аргументы используются в именах скриптов монтирования и файлов со списками источников.
-Скрипты монтирования имеют имена вида mount_<$fpath>, где fpath=$bgrp"_$1" (Linux) или
-fpath=$bgrp"_$1_$2" (Windows).
+Скрипты монтирования имеют имена вида mount_<$fpath>, где fpath=$bgrp"\_$1" (Linux) или
+fpath=$bgrp"\_$1\_$2" (Windows).
 
 Примеры скриптов монтирования приведены (файлы с именами mount_*).
 Скрипты монтирования по умолчанию должны находиться в папке mount
@@ -85,7 +85,7 @@ fpath=$bgrp"_$1_$2" (Windows).
 
 Списки файлов и папок для бэкапа находятся в файлах с именами backup_<$fpath>
 (об этой переменной смотри выше).
-Примеры списков приведены (файлы с именами backup_*).
+Примеры списков приведены (файлы с именами backup\_*).
 Пояснение для масок в списках: одна звездочка означает любое количество символов
 или все файлы в каталоге после последнего слеша;
 две звездочки означают все файлы и каталоги после последнего слеша, то есть рекурсию.
