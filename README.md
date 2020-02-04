@@ -1,7 +1,7 @@
 
 #### --- Смотрите этот текст на русском внизу. See this text in Russian below. ---
 
-#### --- English ---
+### --- English ---
 
 rbfl is an effective script for regular backups using rsync.
 The script uses rsync, sshfs, cifs-utils, expect.
@@ -55,7 +55,7 @@ The script writes backup logs to the directory /var/log/rsync
 In addition, an emergency.log file is created in the same place,
 in which mount errors are written.
 
-#### --- Russian ---
+### --- Russian ---
 
 rbfl - это эффективный скрипт для регулярных бэкапов при помощи rsync.
 Использует rsync, sshfs, cifs-utils, expect.
