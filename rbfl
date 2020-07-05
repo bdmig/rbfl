@@ -59,7 +59,7 @@ else
     echo $fpath >> /var/log/rsync/rbfl-$curdate.log
     echo ==== >> /var/log/rsync/rbfl-$curdate.log
 
-    rsync -Hha --delete --progress --stats --prune-empty-dirs --include='*/' --include-from=backup_$fpath --exclude='*' $src $broot/$bgrp/$curdate/$bpath | tee -ai /var/log/rsync/rbfl-$curdate.log
+    rsync -Hha --delete --progress --stats --prune-empty-dirs --exclude='media/*' --include='*/' --include-from=backup_$fpath --exclude='*' $src $broot/$bgrp/$curdate/$bpath | tee -ai /var/log/rsync/rbfl-$curdate.log
 
 fi
 
