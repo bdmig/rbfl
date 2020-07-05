@@ -4,7 +4,7 @@
 
 log_user 0
 
-spawn sshfs -o password_stdin -p 22 root@111.222.333.444:/ /mnt/rbfl
+spawn sshfs -o password_stdin -o "StrictHostKeyChecking=no" -p 22 root@111.222.333.444:/ /mnt/rbfl
 send "your_root_password\r"
 
 expect timeout {
