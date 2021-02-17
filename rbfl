@@ -41,7 +41,7 @@ if [ -L $broot/last_$bgrp ]; then
     echo $fpath >> /var/log/rsync/rbfl-$curdate.log
     echo ==== >> /var/log/rsync/rbfl-$curdate.log
 
-    rsync -Hha --delete --progress --stats --prune-empty-dirs --link-dest=$broot/$bgrp/$lastdate/$bpath --exclude='media/*' --include='*/' --include-from=backup_$fpath --exclude='*' $src $broot/$bgrp/$curdate/$bpath | tee -ai /var/log/rsync/rbfl-$curdate.log
+    rsync -AaHhX --delete --progress --stats --prune-empty-dirs --link-dest=$broot/$bgrp/$lastdate/$bpath --include='*/' --include-from=/etc/backup_$fpath --exclude='media/*' --exclude='*' $src $broot/$bgrp/$curdate/$bpath | tee -ai /var/log/rsync/rbfl-$curdate.log
 
 else
 
@@ -59,7 +59,7 @@ else
     echo $fpath >> /var/log/rsync/rbfl-$curdate.log
     echo ==== >> /var/log/rsync/rbfl-$curdate.log
 
-    rsync -Hha --delete --progress --stats --prune-empty-dirs --exclude='media/*' --include='*/' --include-from=backup_$fpath --exclude='*' $src $broot/$bgrp/$curdate/$bpath | tee -ai /var/log/rsync/rbfl-$curdate.log
+    rsync -AaHhX --delete --progress --stats --prune-empty-dirs --include='*/' --include-from=/etc/backup_$fpath --exclude='media/*' --exclude='*' $src $broot/$bgrp/$curdate/$bpath | tee -ai /var/log/rsync/rbfl-$curdate.log
 
 fi
 
